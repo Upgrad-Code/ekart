@@ -12,16 +12,25 @@ const ShopPage = () => {
   const { state, dispatch } = useContext(ProductContext);
   console.log(state);
   useEffect(() => {
+    let subscribed = true;
+
     (async () => {
       try {
         dispatch(fetchStart());
-        const data = await AJAX(`${API_URL}`);
-        const products = [...data.products];
-        dispatch(fetchSuccess(products));
+
+        if (subscribed) {
+          const data = await AJAX(`${API_URL}`);
+          const products = [...data.products];
+          dispatch(fetchSuccess(products));
+        }
       } catch (err) {
         dispatch(fetchError(err));
       }
     })();
+
+    return () => {
+      subscribed = false;
+    };
   }, []);
 
   return (
