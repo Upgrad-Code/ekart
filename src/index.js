@@ -1,5 +1,6 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ProductContextProvider } from './contexts/product-context';
 
 import App from './App';
 
@@ -8,6 +9,8 @@ const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <App />
+    <ProductContextProvider>
+      <App />
+    </ProductContextProvider>
   </StrictMode>
 );
